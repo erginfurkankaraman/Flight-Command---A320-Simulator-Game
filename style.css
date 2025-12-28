@@ -1,0 +1,358 @@
+/* center the game on the page */
+body {
+  margin: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+}
+
+#game {
+  position: relative;
+  width: 960px;
+  height: 540px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #000;
+}
+
+/* canvas = outside world */
+#skyCanvas {
+  position: absolute;
+  inset: 0;
+  image-rendering: pixelated;
+  z-index: 1;
+}
+
+/* cockpit = foreground */
+#cockpit { 
+  position: absolute;
+  inset: 0;
+  background-image: url('01_images/cockpit.png'); /* your pixel-art cockpit */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  z-index: 2;
+}
+
+/* simple HUD + score positioning (optional but nice) */
+#hud {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  color: #f9fafb;
+  font-size: 14px;
+  text-shadow: 0 0 4px #000;
+  z-index: 3;
+}
+
+#scorebar {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  color: #f9fafb;
+  font-size: 14px;
+  text-shadow: 0 0 4px #000;
+  z-index: 3;
+}
+
+
+/* HUD and score you already have... */
+/* INCIDENT OVERLAY — pixel retro theme */
+/* 🔻 Overlay background */
+/* 🔻 Overlay background */
+/* 🔻 Overlay background */
+#incident-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+}
+
+
+/* Pixel scaling container */
+#pixel-scale {
+  transform: scale(2.0);            /* small enough to fit in 960x540 */
+  transform-origin: center;
+  image-rendering: pixelated;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Retro panel - now scrollable if needed */
+.incident-panel {
+  width: 230px;
+  max-height: 150px;                /* cap height in low-res units */
+  overflow-y: auto;                 /* show scrollbar when needed */
+  background: #0a0f16;
+  padding: 8px;
+  border: 4px solid #3d586b;
+  outline: 4px solid #0a0f16;
+  box-shadow: 0 0 0 4px #1a2633,
+              0 0 25px rgba(0,0,0,0.8);
+  font-family: "Press Start 2P", monospace;
+  color: #8ef2ff;
+  text-shadow: 0 0 2px #3ef2ff;
+}
+
+
+/* Title */
+.incident-panel h2 {
+  font-size: 8px;
+  margin-bottom: 6px;
+  border-bottom: 2px solid #3d586b;
+  padding-bottom: 3px;
+}
+
+/* Question + feedback text */
+.incident-panel p {
+  font-size: 6px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+/* Options */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.options button {
+  background: #1a2f3d;
+  border: 3px solid #3d586b;
+  color: #b3e6ff;
+  font-family: "Press Start 2P";
+  font-size: 6px;
+  padding: 6px 4px;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 2px #0a0f16;
+  transition: 0.08s;
+}
+
+.options button:hover {
+  background: #274b63;
+}
+
+#feedback {
+  font-size: 6px;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  color: #9affc6;
+}
+
+/* CONTINUE button – ALWAYS BELOW EVERYTHING */
+#continue-btn {
+  display: none;                 /* shown after correct answer */
+  margin-top: 4px;
+  width: 100%;
+  background: #1a2f3d;
+  border: 3px solid #3d586b;
+  color: #8ef2ff;
+  font-family: "Press Start 2P";
+  font-size: 6px;
+  padding: 4px;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 2px #0a0f16;
+}
+
+#continue-btn:hover {
+  background: #274b63;
+}
+
+/* START BOX (unchanged except for context) */
+#start-box {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  background: #0a0f16;
+  padding: 6px;
+  border: 4px solid #3d586b;
+  box-shadow: inset 0 0 0 4px #1a2633;
+  font-family: "Press Start 2P";
+  color: #8ef2ff;
+  font-size: 6px;
+  width: 180px;
+  image-rendering: pixelated;
+  z-index: 3;
+}
+
+#start-box button {
+  margin-top: 6px;
+  width: 100%;
+  background: #1a2f3d;
+  border: 3px solid #3d586b;
+  color: #8ef2ff;
+  font-size: 6px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+#start-box button:hover {
+  background: #274b63;
+}
+
+
+/* Menu screens */
+.menu-screen {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.menu-panel {
+    background: #0a0f16;
+    padding: 40px;
+    border: 4px solid #3d586b;
+    box-shadow: 0 0 0 4px #1a2633, 0 0 25px rgba(0,0,0,0.8);
+    font-family: "Press Start 2P", monospace;
+    color: #8ef2ff;
+    text-align: center;
+    max-width: 500px;
+}
+
+.menu-panel h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #3ef2ff;
+}
+
+.subtitle {
+    font-size: 14px;
+    margin-bottom: 30px;
+    color: #4a7a8f;
+}
+
+.menu-button {
+    width: 100%;
+    font-family: "Press Start 2P";
+    font-size: 14px;
+    padding: 15px;
+    margin: 10px 0;
+    cursor: pointer;
+    border: 3px solid;
+    transition: 0.2s;
+}
+
+.menu-button.primary {
+    background: #1a2f3d;
+    border-color: #3d586b;
+    color: #8ef2ff;
+}
+
+.menu-button.primary:hover {
+    background: #274b63;
+}
+
+.menu-button.secondary {
+    background: #2f1a1a;
+    border-color: #6b3d3d;
+    color: #ff8e8e;
+}
+
+.menu-button.secondary:hover {
+    background: #4b2727;
+}
+
+.developer-credit {
+    margin-top: 30px;
+    font-size: 10px;
+    color: #4a7a8f;
+}
+
+.briefing-text {
+    font-size: 12px;
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+.briefing-info {
+    font-size: 10px;
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(61, 88, 107, 0.2);
+    border: 2px solid #3d586b;
+    line-height: 1.8;
+}
+
+.end-congrats {
+    font-size: 16px;
+    color: #4CAF50;
+    margin: 20px 0;
+    text-shadow: 0 0 10px #4CAF50;
+}
+
+.end-score {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.end-joke {
+    font-size: 10px;
+    font-style: italic;
+    color: #9affc6;
+    margin: 25px 0;
+    line-height: 1.6;
+}
+
+/* Settings screen */
+.settings-section {
+    margin: 30px 0;
+    padding: 20px;
+    width: 300px;
+    height: 80px;	
+    background: rgba(61, 88, 107, 0.2);
+    border: 2px solid #3d586b;
+}
+
+.setting-label {
+    font-size: 10px;
+    margin-bottom: 15px;
+    color: #8ef2ff;
+}
+
+.volume-slider {
+    width: 100%;
+    height: 8px;
+    background: #1a2633;
+    border: 2px solid #3d586b;
+    outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #8ef2ff;
+    border: 2px solid #3d586b;
+    cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #8ef2ff;
+    border: 2px solid #3d586b;
+    cursor: pointer;
+}
+
+.volume-display {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #4CAF50;
+    text-align: center;
+}

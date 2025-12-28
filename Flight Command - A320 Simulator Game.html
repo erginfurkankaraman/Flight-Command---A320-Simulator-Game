@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO and Social Media Meta Tags -->
+    <meta name="description" content="Flight Command - An interactive A320 flight simulator game demonstrating aviation knowledge and crisis management skills. Created by Ergin Furkan Karaman.">
+    <meta name="keywords" content="flight simulator, aviation game, A320, pilot training, aviation enthusiast, Ergin Furkan Karaman">
+    <meta name="author" content="Ergin Furkan Karaman">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <title>Flight Command - A320 Simulator | by Ergin Furkan Karaman</title>
+    
+    <!-- Connect CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Game container -->
+    <div id="game">
+        <canvas id="skyCanvas" width="960" height="540"></canvas>
+
+        <!-- Cockpit overlay image -->
+        <div id="cockpit"></div>
+
+		<!-- HUD (simplified) -->
+		<div id="hud">
+			<div>ROLE: Captain</div>
+			<div>A/C: A320</div>
+		</div>
+
+        <!-- Score -->
+        <div id="scorebar">SCORE: <span id="score">0</span></div>
+
+		<!-- Incident Overlay (pixel scaled) -->
+		<div id="incident-overlay">
+			<div id="pixel-scale">
+				<div class="incident-panel">
+					<h2>INCIDENT</h2>
+					<p id="incident-text"></p>
+					<div class="options">
+						<button id="opt0"></button>
+						<button id="opt1"></button>
+						<button id="opt2"></button>
+					</div>
+					<p id="feedback"></p>
+
+					<!-- New continue button -->
+					<button id="continue-btn">CONTINUE FLIGHT</button>
+				</div>
+			</div>
+		</div>
+
+
+        <!-- Start scenario hint box -->
+        <div id="start-box">
+            <p>Press SPACE or click the button to start a scenario.</p>
+            <button id="start-btn">Start Scenario</button>
+        </div>
+		
+
+		<!-- Main Menu Screen -->
+		<div id="main-menu" class="menu-screen">
+			<div class="menu-panel">
+				<h2>FLIGHT COMMAND</h2>
+				<p class="subtitle">A320 Simulator</p>
+				<button id="menu-start-btn" class="menu-button primary">START FLIGHT</button>
+				<button id="menu-settings-btn" class="menu-button primary">SETTINGS</button>
+				<button id="menu-exit-btn" class="menu-button secondary">EXIT</button>
+				<p class="developer-credit">Developed by<br/>Ergin Furkan Karaman</p>
+			</div>
+		</div>
+
+		<!-- Settings Screen -->
+		<div id="settings-screen" class="menu-screen" style="display: none;">
+			<div class="menu-panel">
+				<h2>SETTINGS</h2>
+				<div class="settings-section">
+					<p class="setting-label">MUSIC VOLUME</p>
+					<input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="100">
+					<p class="volume-display" id="volume-value">100%</p>
+				</div>
+				<div class="settings-section">
+					<p class="setting-label">FX VOLUME</p>
+					<input type="range" id="fx-slider" class="volume-slider" min="0" max="100" value="100">
+					<p class="volume-display" id="fx-value">100%</p>
+				</div>
+				<button id="settings-back-btn" class="menu-button primary">BACK</button>
+			</div>
+		</div>
+
+		<!-- Flight Briefing Screen -->
+		<div id="briefing-screen" class="menu-screen" style="display: none;">
+			<div class="menu-panel">
+				<h2>FLIGHT BRIEFING</h2>
+				<p class="briefing-text">Good morning, Captain!</p>
+				<p class="briefing-text">Today we'll be flying from Frankfurt (EDDF) to London Heathrow (EGLL) on an Airbus A320.</p>
+				<p class="briefing-info">Flight time: 1 hour 35 minutes<br/>Cruise altitude: FL360<br/>Weather: Mixed conditions</p>
+				<p class="briefing-text">Your First Officer will assist you throughout the flight. Stay alert and make safe decisions.</p>
+				<button id="briefing-start-btn" class="menu-button primary">BEGIN FLIGHT</button>
+			</div>
+		</div>
+
+		<!-- End Screen -->
+		<div id="end-screen" class="menu-screen" style="display: none;">
+			<div class="menu-panel">
+				<h2>FLIGHT COMPLETE!</h2>
+				<p class="end-congrats">CONGRATULATIONS<br/>CAPTAIN!</p>
+				<p class="end-score">Final Score: <span id="final-score">0</span>/5</p>
+				<p class="end-joke">"From turbulence to bird strikes, you handled it all. Remember: Any landing you can walk away from is a good one!"</p>
+				<button id="replay-btn" class="menu-button primary">PLAY AGAIN</button>
+				<button id="end-exit-btn" class="menu-button secondary">EXIT</button>
+			</div>
+		</div>
+		
+		
+    </div>
+	
+	
+    <!-- Background music -->
+	<audio id="bg-music" src="02_sound_effects/bg_music.mp3" loop></audio>
+
+    <!-- Connect JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
