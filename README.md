@@ -38,7 +38,4 @@ As an aviation enthusiast, I wanted to create an engaging way to demonstrate my 
 - LinkedIn: [Ergin Furkan Karaman] (https://www.linkedin.com/in/ergin-furkan-karaman-054277197/)
 
 ## 🚀 Play Online
-
-[Link to hosted version]
-
----
+https://erginfurkankaraman.github.io/Flight-Command---A320-Simulator-Game/
