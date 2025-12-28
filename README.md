@@ -27,7 +27,7 @@ Flight Command is an educational aviation game where players take the role of an
 - CSS3 for styling
 - No frameworks - pure web technologies
 
-- ## 🔧 Tools Used in Production
+## 🔧 Tools Used in Production
 
 ### 💻 Coding & Logic Assistance
 > Used for code generation, debugging, scenario writing, and optimization
